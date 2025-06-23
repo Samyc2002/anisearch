@@ -5,8 +5,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "NSFW Search",
-  description: "Search NSFW videos as per your desires.",
+  title: "Ani Search",
+  description: "Search the Anime of your dreams.",
 };
 
 export default function RootLayout({ children }) {

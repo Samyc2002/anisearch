@@ -11,6 +11,7 @@ import axios from "axios";
 import { BadgeCheckIcon, Loader, Search } from "lucide-react";
 import { toast } from "sonner";
 import { fetchGenres } from "@/lib/fetchGenres";
+import Image from "next/image";
 
 export default function Home() {
   const [prevPrompt, setPrevPrompt] = useState("");
@@ -119,7 +120,7 @@ export default function Home() {
           </h1>
 
           <h2 className="scroll-m-20 text-center text-3xl tracking-tight text-balance">
-            Describe your anime kink. We'll find it.
+            Describe your anime kink. We&apos;ll find it.
           </h2>
 
           <div className="flex flex-col items-center justify-items-cente gap-8 w-[60%]">
@@ -185,10 +186,12 @@ export default function Home() {
                         href={anime.siteUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        className="relative w-full h-[300px]"
                       >
-                        <img
+                        <Image
                           src={anime.coverImage.large}
                           alt={anime.title.english || anime.title.romaji}
+                          fill
                           className="w-full h-64 object-cover transition-transform duration-200 hover:scale-105"
                         />
                       </a>
