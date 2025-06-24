@@ -5,8 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Toaster } from "@/components/ui/sonner";
-import { searchAnimeByTags } from "@/lib/searchAnimeByTags";
-import { TAG_MAP } from "@/public/data/tags";
+import { searchAnimeByGenre } from "@/lib/searchAnimeByTags";
+import { DEFAULT_ANIME_LIST, GENRE_MAP } from "@/public/data/tags";
 import axios from "axios";
 import { BadgeCheckIcon, Loader, Search } from "lucide-react";
 import { toast } from "sonner";
@@ -18,16 +18,13 @@ export default function Home() {
   const [prompt, setPrompt] = useState("");
   const [detectedGenres, setDetectedGenres] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [animeResults, setAnimeResults] = useState({
-    results: [],
-    message: "",
-  });
+  const [animeResults, setAnimeResults] = useState(DEFAULT_ANIME_LIST);
 
   const getAnime = async (userGenres = [], relatedTo = []) => {
     await fetchGenres();
     setDetectedGenres(userGenres);
 
-    const animeResults = await searchAnimeByTags(userGenres);
+    const animeResults = await searchAnimeByGenre(userGenres);
 
     let message = "Anime recommendations";
     if (animeResults?.length === 0) {
@@ -51,10 +48,9 @@ export default function Home() {
       setPrevPrompt(prompt);
 
       const { data } = await axios.post("/api", { prompt });
-
-      const { genres = [], related_to = [] } = data || {};
-
-      getAnime(genres, related_to);
+      const { genres = [], animeList = DEFAULT_ANIME_LIST } = data || {};
+      setDetectedGenres(genres);
+      setAnimeResults(animeList);
 
       setLoading(false);
     } catch (error) {
@@ -95,7 +91,7 @@ export default function Home() {
   }
 
   const surpriseMe = () => {
-    const genres = TAG_MAP.sort(() => 0.5 - Math.random()).slice(0, 3);
+    const genres = GENRE_MAP.sort(() => 0.5 - Math.random()).slice(0, 3);
     const prompt = generatePrompt(genres);
 
     setPrompt(prompt);

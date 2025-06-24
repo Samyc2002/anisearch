@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["s4.anilist.co"],
+    remotePatterns: [new URL("https://s4.anilist.co/**")],
   },
 };
 
