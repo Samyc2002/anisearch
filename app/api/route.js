@@ -1,5 +1,5 @@
 import { searchAnimeByGenre, searchAnimeByTags } from "@/lib/searchAnimeByTags";
-import { GENRE_MAP, TAG_MAP } from "@/public/data/tags";
+import { GENRE_MAP, TAG_MAP } from "@/public/data/meta";
 import axios from "axios";
 
 export async function POST(request) {
@@ -18,7 +18,7 @@ export async function POST(request) {
 
   Available tags: ${TAG_MAP.map((tag) => tag.name)}
 
-  NOTE: Make sure you send the top 3-5 relevant genres only. There is no lomit for tags. Use the genres and tags that are provided with the same case.
+  NOTE: Make sure you send the top 3-5 relevant genres only. There is no lomit for number of tags, but make sure they are sorted in the order of relevance, with most relevant first. Use the genres and tags that are provided with the same case.
   `;
 
   try {
